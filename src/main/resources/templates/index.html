@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+</div>
+
+<div class="jumbotron">
+    <div class="row text-center">
+        <div class="">
+            <h2>Spring Tibet Doctor</h2>
+
+            <!--<h3>Spring Boot Web App</h3>-->
+        </div>
+    </div>
+    <div class="row text-center">
+        <img src="../static/images/Coat_of_Arms_of_Tibet.png" width="400"
+             th:src="@{/images/Coat_of_Arms_of_Tibet.png}"/>
+    </div>
+</div>
+</body>
+</html>
