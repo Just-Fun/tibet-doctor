@@ -19,4 +19,22 @@ public class PatientServiceImpl implements PatientService {
         Iterable<Patient> all = patientRepository.findAll();
         return all;
     }
+
+    @Override
+    public Patient getPatientById(Integer id) {
+
+        Patient one = patientRepository.findOne(id);
+        return one;
+    }
+
+    @Override
+    public Patient savePatient(Patient patient) {
+        Patient save = patientRepository.save(patient);
+        return save;
+    }
+
+    @Override
+    public void deletePatient(Integer id) {
+         patientRepository.delete(id);
+    }
 }

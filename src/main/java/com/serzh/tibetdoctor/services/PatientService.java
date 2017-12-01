@@ -7,4 +7,10 @@ import com.serzh.tibetdoctor.domain.Patient;
  */
 public interface PatientService {
     Iterable<Patient> listAllPatients();
+
+    Patient getPatientById(Integer id);
+
+    Patient savePatient(Patient patient);
+
+    void deletePatient(Integer id);
 }

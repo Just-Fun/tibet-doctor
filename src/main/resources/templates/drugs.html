@@ -12,9 +12,9 @@
 
 
 
-    <div th:if="${not #lists.isEmpty(patients)}">
+    <div th:if="${not #lists.isEmpty(drugs)}">
         <!--<form th:action="@{/logout}" method="post">-->
-            <div class="col-sm-10"><h2>Patients Listing</h2></div>
+            <div class="col-sm-10"><h2>Список лекарств</h2></div>
             <!--<div class="col-sm-2" style="padding-top: 30px;">-->
                      <!--<span sec:authorize="isAuthenticated()">-->
 
@@ -26,7 +26,9 @@
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
+                <th>Code</th>
                 <th>Name</th>
+                <th>Type</th>
                 <!--<th>Description</th>-->
                 <!--<th>Price</th>-->
                 <th>View</th>
@@ -36,14 +38,16 @@
                 <!--<th sec:authorize="hasAuthority('ADMIN')">Edit</th>-->
                 <!--<th sec:authorize="hasAuthority('ADMIN')">Delete</th>-->
             </tr>
-            <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>
-                <td th:text="${patient.name}">Name</td>
+            <tr th:each="drug : ${drugs}">
+                <td th:text="${drug.id}"><a href="/drugs/${drug.id}">Id</a></td>
+                <td th:text="${drug.code}">Code</td>
+                <td th:text="${drug.name}">Name</td>
+                <td th:text="${drug.type}">Type</td>
                 <!--<td th:text="${patient.description}">descirption</td>-->
                 <!--<td th:text="${patient.price}">price</td>-->
-                <td><a th:href="${'/patient/show/' + patient.id}">View</a></td>
-                <td><a th:href="${'/patient/edit/' + patient.id}">Edit</a></td>
-                <td><a th:href="${'/patient/delete/' + patient.id}">Delete</a></td>
+                <td><a th:href="${'/drug/show/' + drug.id}">View</a></td>
+                <td><a th:href="${'/drug/edit/' + drug.id}">Edit</a></td>
+                <td><a th:href="${'/drug/delete/' + drug.id}">Delete</a></td>
                 <!--<td sec:authorize="hasAnyAuthority('USER','ADMIN')"><a th:href="${'/product/show/' + product.id}">View</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/edit/' + product.id}">Edit</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/delete/' + product.id}">Delete</a></td>-->
