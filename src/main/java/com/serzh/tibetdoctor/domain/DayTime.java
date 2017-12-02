@@ -1,8 +1,10 @@
 package com.serzh.tibetdoctor.domain;
 
-import lombok.Getter;
+public class DayTime {
 
-@Getter
+
+}
+/*@Getter
 public enum DayTime {
     MORNING("утро"),
     DAY("день"),
@@ -13,5 +15,5 @@ public enum DayTime {
     DayTime(String template) {
 //        DayTime.EVENING.getTemplate()
         this.template = template;
-    }
-}
+    }*/
+

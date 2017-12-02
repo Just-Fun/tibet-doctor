@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head lang="en">
 
-    <title>Spring Framework Guru</title>
+    <title>Tibet Doctor </title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
@@ -14,7 +14,7 @@
 
     <div th:if="${not #lists.isEmpty(patients)}">
         <!--<form th:action="@{/logout}" method="post">-->
-            <div class="col-sm-10"><h2>Patients Listing</h2></div>
+        <div class="col-sm-10"><h2>Patients Listing</h2></div>
             <!--<div class="col-sm-2" style="padding-top: 30px;">-->
                      <!--<span sec:authorize="isAuthenticated()">-->
 
@@ -38,9 +38,9 @@
             </tr>
             <tr th:each="patient : ${patients}">
                 <td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>
-                <td th:text="${patient.name}">Name</td>
                 <!--<td th:text="${patient.description}">descirption</td>-->
                 <!--<td th:text="${patient.price}">price</td>-->
+                <td th:text="${patient.name}">Name</td>
                 <td><a th:href="${'/patient/show/' + patient.id}">View</a></td>
                 <td><a th:href="${'/patient/edit/' + patient.id}">Edit</a></td>
                 <td><a th:href="${'/patient/delete/' + patient.id}">Delete</a></td>

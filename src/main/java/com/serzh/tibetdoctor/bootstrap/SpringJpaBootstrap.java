@@ -10,6 +10,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -23,12 +26,12 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         Patient patient1 = Patient.builder()
                 .name("Jim")
 //                .phone()
-                .age(20)
+                .email("jim@gmail.com")
                 .build();
 
         Patient patient2 = Patient.builder()
                 .name("Jolly")
-                .age(22)
+                .phone("0506784567")
                 .build();
 
 
@@ -38,17 +41,54 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         log.info("Saved patient - id: " + patient2.getId());
 
 
-        Drug drug = Drug.builder()
+        List<Drug> drugs = createDrugs();
+
+
+    }
+
+    private List<Drug> createDrugs() {
+        List<Drug> result = new ArrayList<>();
+
+        Drug drug1 = Drug.builder()
+                .code("AD4")
+                .name("adelito")
+                .type("порошек")
+                .available(500)
+                .build();
+
+        drugsRepository.save(drug1);
+        log.info("Saved drug - id: " + drug1.getId());
+
+        Drug drug2 = Drug.builder()
                 .code("Some Code")
                 .name("Agar")
                 .type("порошек")
                 .build();
 
-        drugsRepository.save(drug);
-        log.info("Saved drug - id: " + drug.getId());
+        drugsRepository.save(drug2);
+        log.info("Saved drug - id: " + drug2.getId());
 
+        result.add(drug1);
+        result.add(drug2);
 
+        return result;
     }
+
+
+    /*    @ManyToOne
+    private Patient patient;
+    private LocalDate date;
+    @ManyToOne
+    private Drug drug;
+    @ManyToOne
+    private Dosage dosage;
+    @ManyToOne
+    private DayTime dayTime;
+    @ManyToOne
+    private MealRelation mealRelation;
+    @ManyToOne
+    private TimeRelativeMeal timeRelativeMeal;
+    private String additionalInfo;*/
 
 }
 

@@ -27,5 +27,6 @@ public class Drug {
     private String code;
     private String name;
     private String type;
+    private int available;
 
 }

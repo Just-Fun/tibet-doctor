@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <title>Spring Framework Guru</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/guru.css" />
+    <title>Tibet Doctor </title>
+    <link rel="stylesheet" type="text/css" href="../static/css/guru.css"/>
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
@@ -21,14 +21,34 @@
 
     <div>
         <form class="form-horizontal" th:object="${patient}" th:action="@{/patient}" method="post">
-            <input type="hidden" th:field="*{id}"/>
-            <!--<input type="hidden" th:field="*{name}"/>-->
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{name}"/>
-                </div>
-            </div>
+            <tr>
+                <td>
+                    <input type="hidden" th:field="*{id}"/>
+                    <!--<input type="hidden" th:field="*{name}"/>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{name}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Surname:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{surname}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Patronymic:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{patronymic}"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <!--<div class="form-group">
                 <label class="col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
