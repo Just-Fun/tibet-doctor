@@ -22,7 +22,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     private LocalDate date;
     @ManyToOne

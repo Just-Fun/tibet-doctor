@@ -10,7 +10,7 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-
+    <li><a href="#" th:href="@{/patients/new}">Create New Patient</a></li>
 
     <div th:if="${not #lists.isEmpty(patients)}">
         <!--<form th:action="@{/logout}" method="post">-->
@@ -25,11 +25,11 @@
         <!--</form>-->
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
+                <!--<th>Id</th>-->
                 <th>Name</th>
-                <!--<th>Description</th>-->
-                <!--<th>Price</th>-->
-                <th>View</th>
+                <th>Sex</th>
+                <th>Surname</th>
+                <th>Назначения</th>
                 <th>Edit</th>
                 <th>Delete</th>
                 <!--<th sec:authorize="hasAnyAuthority('USER','ADMIN')">View</th>-->
@@ -37,13 +37,13 @@
                 <!--<th sec:authorize="hasAuthority('ADMIN')">Delete</th>-->
             </tr>
             <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>
-                <!--<td th:text="${patient.description}">descirption</td>-->
-                <!--<td th:text="${patient.price}">price</td>-->
+                <!--<td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>-->
                 <td th:text="${patient.name}">Name</td>
-                <td><a th:href="${'/patients/' + patient.id}">View</a></td>
+                <td th:text="${patient.sex}">Sex</td>
+                <td th:text="${patient.surname}">Surname</td>
+                <td><a th:href="${'/patients/' + patient.id}">Назначения</a></td>
                 <td><a th:href="${'/patients/edit/' + patient.id}">Edit</a></td>
-                <td><a th:href="${'/patient/delete/' + patient.id}">Delete</a></td>
+                <td><a th:href="${'/patients/delete/' + patient.id}">Delete</a></td>
                 <!--<td sec:authorize="hasAnyAuthority('USER','ADMIN')"><a th:href="${'/product/show/' + product.id}">View</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/edit/' + product.id}">Edit</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/delete/' + product.id}">Delete</a></td>-->

@@ -55,26 +55,35 @@
         </tr>
     </table>
 
-
-
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Назначения:</label>
 
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Date</th>
+                <th>Drugs</th>
+                <th>Dosage</th>
+                <th>DayTime</th>
+                <th>MealRelation</th>
+                <th>TimeRelativeMeal</th>
+                <th>durationTakingMedicines</th>
+                <th>beginningTakingMedicines</th>
+                <th>takeWith</th>
+                <th>additionalInfo</th>
             </tr>
-            <tr th:each="patient : ${patients}">
-                <td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>
-                <td th:text="${patient.name}">Name</td>
-                <td><a th:href="${'/patient/show/' + patient.id}">View</a></td>
-                <td><a th:href="${'/patient/edit/' + patient.id}">Edit</a></td>
-                <td><a th:href="${'/patient/delete/' + patient.id}">Delete</a></td>
+            <tr th:each="recipe : ${recipes}">
+                <!--<td th:text="${patient.name}">Name</td>-->
+                <!--<td><a th:href="${'/patient/show/' + patient.id}">View</a></td>-->
+                <td th:text="${recipe.date}">Date</td>
+                <td th:text="${recipe.drug}">Drug</td>
+                <td th:text="${recipe.dosage}">Dosage</td>
+                <td th:text="${recipe.dayTime}">DayTime</td>
+                <td th:text="${recipe.mealRelation}">MealRelation</td>
+                <td th:text="${recipe.timeRelativeMeal}">TimeRelativeMeal</td>
+                <td th:text="${recipe.durationTakingMedicines}">DurationTakingMedicines</td>
+                <td th:text="${recipe.beginningTakingMedicines}">BeginningTakingMedicines</td>
+                <td th:text="${recipe.takeWith}">TakeWith</td>
+                <td th:text="${recipe.additionalInfo}">AdditionalInfo</td>
             </tr>
         </table>
 

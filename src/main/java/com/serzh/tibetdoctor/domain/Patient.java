@@ -27,21 +27,34 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-//    @NotNull(message = "Name cannot be null")
+    //    @NotNull(message = "Name cannot be null")
     private String name;
     private Sex sex;
     private String surname;
     private String patronymic;
-//    @Min(value = 18, message = "Age should not be less than 18")
+    //    @Min(value = 18, message = "Age should not be less than 18")
 //    @Max(value = 150, message = "Age should not be greater than 150")
 //    private int age;
     private LocalDate birthday;
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @Pattern(regexp = "(^$|[0-9]{10})")
     private String phone;
     @Email(message = "Email should be valid")
     private String email;
     private String contacts;
     private String additionalInfo;
+
+    /*@OneToMany(fetch = FetchType.LAZY)
+    private List<Recipe> recipes;
+
+    public void setRecipes(Recipe recipe) {
+        if (CollectionUtils.isEmpty(recipes)) {
+            recipes = new ArrayList<>();
+        }
+        if (recipe.getPatient() == null) {
+            recipe.setPatient(this);
+            recipes.add(recipe);
+        }
+    }*/
 
 
 }

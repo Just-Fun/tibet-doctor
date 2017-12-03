@@ -2,7 +2,8 @@ package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Patient;
 import com.serzh.tibetdoctor.services.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.serzh.tibetdoctor.services.RecipesServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,11 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/patients")
+@RequiredArgsConstructor
 public class PatientController {
 
-    private PatientService patientService;
-
-    @Autowired
-    public void setProductService(PatientService patientService) {
-        this.patientService = patientService;
-    }
+    private final PatientService patientService;
+    private final RecipesServiceImpl recipesService;
 
     @GetMapping
     public String list(Model model){
@@ -30,16 +28,17 @@ public class PatientController {
     @GetMapping("{id}")
     public String showPatient(@PathVariable Integer id, Model model){
         model.addAttribute("patient", patientService.getPatientById(id));
+        model.addAttribute("recipes", recipesService.findByPatient(id));
         return "patientshow";
     }
 
-    @RequestMapping("edit/{id}")
+    @GetMapping("edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("patient", patientService.getPatientById(id));
         return "patientform";
     }
 
-    @RequestMapping("product/new")
+    @GetMapping("new")
     public String newPatient(Model model){
         model.addAttribute("patient", new Patient());
         return "patientform";
@@ -51,7 +50,7 @@ public class PatientController {
         return "redirect:/patients/" + savedPatient.getId();
     }
 
-    @RequestMapping("patient/delete/{id}")
+    @GetMapping("patients/delete/{id}")
     public String delete(@PathVariable Integer id){
         patientService.deletePatient(id);
         return "redirect:/patients";
