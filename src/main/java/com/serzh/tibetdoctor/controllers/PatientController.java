@@ -5,14 +5,13 @@ import com.serzh.tibetdoctor.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author sergii.zagryvyi on 30.11.2017
  */
 @Controller
+@RequestMapping("/patients")
 public class PatientController {
 
     private PatientService patientService;
@@ -22,20 +21,19 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @RequestMapping(value = "/patients", method = RequestMethod.GET)
+    @GetMapping
     public String list(Model model){
         model.addAttribute("patients", patientService.listAllPatients());
         return "patients";
     }
 
-
-    @RequestMapping("patient/show/{id}")
+    @GetMapping("{id}")
     public String showPatient(@PathVariable Integer id, Model model){
         model.addAttribute("patient", patientService.getPatientById(id));
         return "patientshow";
     }
 
-    @RequestMapping("patient/edit/{id}")
+    @RequestMapping("edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("patient", patientService.getPatientById(id));
         return "patientform";
@@ -47,10 +45,10 @@ public class PatientController {
         return "patientform";
     }
 
-    @RequestMapping(value = "patient", method = RequestMethod.POST)
+    @PostMapping
     public String savePatient(Patient patient){
         Patient savedPatient = patientService.savePatient(patient);
-        return "redirect:/patient/show/" + savedPatient.getId();
+        return "redirect:/patients/" + savedPatient.getId();
     }
 
     @RequestMapping("patient/delete/{id}")
