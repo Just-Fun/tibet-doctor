@@ -37,7 +37,7 @@ public class Recipe {
     private TimeRelativeMeal timeRelativeMeal;
     private int durationTakingMedicines;
     private LocalDate beginningTakingMedicines;
-    @ManyToMany
+    @ManyToOne
     private TakeWith takeWith;
 
 
