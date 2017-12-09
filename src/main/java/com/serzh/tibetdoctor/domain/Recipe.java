@@ -32,14 +32,13 @@ public class Recipe {
     @ManyToOne
     private DayTime dayTime;
     @ManyToOne
-    private MealRelation mealRelation;
-    @ManyToOne
     private TimeRelativeMeal timeRelativeMeal;
+    @ManyToOne
+    private MealRelation mealRelation;
     private int durationTakingMedicines;
     private LocalDate beginningTakingMedicines;
     @ManyToOne
     private TakeWith takeWith;
-
 
     private String additionalInfo;
 

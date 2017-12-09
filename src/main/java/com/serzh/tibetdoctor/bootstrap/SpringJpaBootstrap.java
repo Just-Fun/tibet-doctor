@@ -1,12 +1,7 @@
 package com.serzh.tibetdoctor.bootstrap;
 
-import com.serzh.tibetdoctor.domain.Drug;
-import com.serzh.tibetdoctor.domain.Patient;
-import com.serzh.tibetdoctor.domain.Recipe;
-import com.serzh.tibetdoctor.domain.Sex;
-import com.serzh.tibetdoctor.repositories.DrugsRepository;
-import com.serzh.tibetdoctor.repositories.PatientRepository;
-import com.serzh.tibetdoctor.repositories.RecipesRepository;
+import com.serzh.tibetdoctor.domain.*;
+import com.serzh.tibetdoctor.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -26,24 +21,48 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private final PatientRepository patientRepository;
     private final DrugsRepository drugsRepository;
     private final RecipesRepository recipesRepository;
+    private final DosageRepository dosageRepository;
+    private final DayTimeRepository dayTimeRepository;
+    private final TimeRelativeMealRepository timeRelativeMealRepository;
+    private final MealRelationRepository mealRelationRepository;
+    private final TakeWithRepository takeWithRepository;
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         Patient patient1 = Patient.builder()
-                .name("Jim")
                 .sex(Sex.MALE)
-                .surname("Vahtangovich")
-//                .phone()
+                .name("Владимир")
+                .patronymic("Васильевич")
+                .surname("Иванов")
+                .birthday(LocalDate.of(1980, 3, 11))
+                .phone("+380661238923")
                 .email("jim@gmail.com")
-//                .recipes(recipes)
+                .contacts("skype - vladimir.i, facebook - vladimir.ivanov")
+                .additionalInfo("Обычно опаздывает на прием.")
                 .build();
+
+
+        List<Drug> drugs = createDrugs();
+        List<Dosage> dosages = createDosage();
+        List<DayTime> dayTimes = createDayTimes();
+        List<MealRelation> mealRelations = createRelativeMeal();
+        List<TimeRelativeMeal> timeRelativeMeals = createTimeRelativeMeal();
+        List<TakeWith> takeWiths = createTakeWiths();
 
         Recipe recipe1 = Recipe.builder()
                 .patient(patient1)
                 .date(LocalDate.now())
-                .additionalInfo("Some additional info")
+                .drug(drugs.get(0))
+                .dosage(dosages.get(0))
+                .dayTime(dayTimes.get(0))
+                .timeRelativeMeal(timeRelativeMeals.get(0))
+                .mealRelation(mealRelations.get(0))
+                .durationTakingMedicines(15)
+                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
+                .takeWith(takeWiths.get(0))
+                .additionalInfo("Пить через день")
                 .build();
 
         recipesRepository.save(recipe1);
@@ -69,23 +88,93 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
 
 
-        List<Drug> drugs = createDrugs();
-
-
     }
 
-    /*private List<Recipe> getRecipes() {
-        List<Recipe> recipes = new ArrayList<>();
-        Recipe recipe1 = Recipe.builder()
-                .date(LocalDate.now())
-                .additionalInfo("Some additional info")
+    private List<TakeWith> createTakeWiths() {
+        List<TakeWith> takeWiths = new ArrayList<>();
+        TakeWith hotWater = TakeWith.builder()
+                .value("запивать кипятком")
+                .build();
+        takeWithRepository.save(hotWater);
+        TakeWith milk = TakeWith.builder()
+                .value("запивать молоком")
+                .build();
+        takeWithRepository.save(milk);
+
+        takeWiths.add(hotWater);
+        takeWiths.add(milk);
+        return takeWiths;
+    }
+
+    private List<DayTime> createDayTimes() {
+        List<DayTime> dayTimes = new ArrayList<>();
+        DayTime morning = DayTime.builder()
+                .value("утро")
+                .build();
+        dayTimeRepository.save(morning);
+
+        DayTime evening = DayTime.builder()
+                .value("вечер")
+                .build();
+        dayTimeRepository.save(evening);
+
+        dayTimes.add(morning);
+        dayTimes.add(evening);
+        return dayTimes;
+    }
+
+    private List<MealRelation> createRelativeMeal() {
+        List<MealRelation> mealRelations = new ArrayList<>();
+        MealRelation beforeMeal = MealRelation.builder()
+                .value("до еды")
+                .build();
+        mealRelationRepository.save(beforeMeal);
+
+        MealRelation afterMeal = MealRelation.builder()
+                .value("после еды")
+                .build();
+        mealRelationRepository.save(afterMeal);
+
+        mealRelations.add(beforeMeal);
+        mealRelations.add(afterMeal);
+
+        return mealRelations;
+    }
+
+    private List<TimeRelativeMeal> createTimeRelativeMeal() {
+        List<TimeRelativeMeal> timeRelativeMeals = new ArrayList<>();
+        TimeRelativeMeal minutes = TimeRelativeMeal.builder()
+                .value("15 минут")
                 .build();
 
-        recipesRepository.save(recipe1);
-        recipes.add(recipe1);
+        timeRelativeMealRepository.save(minutes);
 
-        return recipes;
-    }*/
+        TimeRelativeMeal hour = TimeRelativeMeal.builder()
+                .value("1 час")
+                .build();
+
+        timeRelativeMealRepository.save(hour);
+
+        timeRelativeMeals.add(minutes);
+        timeRelativeMeals.add(hour);
+        return timeRelativeMeals;
+    }
+
+    private List<Dosage> createDosage() {
+        List<Dosage> dosages = new ArrayList<>();
+        Dosage dosage1 = Dosage.builder()
+                .value("1 грамм(чайная ложка)")
+                .build();
+        dosageRepository.save(dosage1);
+        Dosage dosage2 = Dosage.builder()
+                .value("2 грамма")
+                .build();
+
+        dosageRepository.save(dosage2);
+        dosages.add(dosage1);
+        dosages.add(dosage2);
+        return dosages;
+    }
 
     private List<Drug> createDrugs() {
         List<Drug> result = new ArrayList<>();
@@ -114,22 +203,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         return result;
     }
-
-
-    /*    @ManyToOne
-    private Patient patient;
-    private LocalDate date;
-    @ManyToOne
-    private Drug drug;
-    @ManyToOne
-    private Dosage dosage;
-    @ManyToOne
-    private DayTime dayTime;
-    @ManyToOne
-    private MealRelation mealRelation;
-    @ManyToOne
-    private TimeRelativeMeal timeRelativeMeal;
-    private String additionalInfo;*/
 
 }
 
