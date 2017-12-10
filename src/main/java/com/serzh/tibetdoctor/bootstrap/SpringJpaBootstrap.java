@@ -32,7 +32,8 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         Patient patient1 = Patient.builder()
-                .sex(Sex.MALE)
+//                .sex(Sex.MALE)
+                .sex(Sex.MALE.getTemplate())
                 .name("Владимир")
                 .patronymic("Васильевич")
                 .surname("Иванов")
@@ -48,7 +49,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         List<Dosage> dosages = createDosage();
         List<DayTime> dayTimes = createDayTimes();
         List<MealRelation> mealRelations = createRelativeMeal();
-        List<TimeRelativeMeal> timeRelativeMeals = createTimeRelativeMeal();
+//        List<TimeRelativeMeal> timeRelativeMeals = createTimeRelativeMeal();
         List<TakeWith> takeWiths = createTakeWiths();
 
         Recipe recipe1 = Recipe.builder()
@@ -57,7 +58,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .drug(drugs.get(0))
                 .dosage(dosages.get(0))
                 .dayTime(dayTimes.get(0))
-                .timeRelativeMeal(timeRelativeMeals.get(0))
+//                .timeRelativeMeal(timeRelativeMeals.get(0))
                 .mealRelation(mealRelations.get(0))
                 .durationTakingMedicines(15)
                 .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
@@ -66,11 +67,26 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .build();
 
         recipesRepository.save(recipe1);
-//        patient1.setRecipes(recipe1);
+
+        Recipe recipe2 = Recipe.builder()
+                .patient(patient1)
+                .date(LocalDate.now())
+                .drug(drugs.get(1))
+                .dosage(dosages.get(1))
+                .dayTime(dayTimes.get(1))
+//                .timeRelativeMeal(timeRelativeMeals.get(1))
+                .mealRelation(mealRelations.get(1))
+                .durationTakingMedicines(7)
+                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
+                .takeWith(takeWiths.get(1))
+                .additionalInfo("Прописан массаж кунье.")
+                .build();
+
+        recipesRepository.save(recipe2);
 
         Patient patient2 = Patient.builder()
                 .name("Jolly")
-                .sex(Sex.FEMALE)
+                .sex(Sex.FEMALE.getTemplate())
                 .surname("Vahtangovna")
                 .phone("0506784567")
                 .build();
@@ -126,12 +142,12 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private List<MealRelation> createRelativeMeal() {
         List<MealRelation> mealRelations = new ArrayList<>();
         MealRelation beforeMeal = MealRelation.builder()
-                .value("до еды")
+                .value("за 15 минут до еды")
                 .build();
         mealRelationRepository.save(beforeMeal);
 
         MealRelation afterMeal = MealRelation.builder()
-                .value("после еды")
+                .value("через час после еды")
                 .build();
         mealRelationRepository.save(afterMeal);
 
@@ -140,7 +156,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         return mealRelations;
     }
-
+/*
     private List<TimeRelativeMeal> createTimeRelativeMeal() {
         List<TimeRelativeMeal> timeRelativeMeals = new ArrayList<>();
         TimeRelativeMeal minutes = TimeRelativeMeal.builder()
@@ -158,7 +174,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         timeRelativeMeals.add(minutes);
         timeRelativeMeals.add(hour);
         return timeRelativeMeals;
-    }
+    }*/
 
     private List<Dosage> createDosage() {
         List<Dosage> dosages = new ArrayList<>();
@@ -190,7 +206,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         log.info("Saved drug - id: " + drug1.getId());
 
         Drug drug2 = Drug.builder()
-                .code("Some Code")
+                .code("DF5")
                 .name("Agar")
                 .type("порошек")
                 .build();

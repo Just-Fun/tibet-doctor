@@ -5,8 +5,10 @@ import lombok.Getter;
 @Getter
 public enum Sex {
 
-    MALE("мужчина"),
-    FEMALE("женщина");
+//    MALE("мужчина"),
+//    FEMALE("женщина");
+    MALE("м"),
+    FEMALE("ж");
     private final String template;
 
     Sex(String template) {

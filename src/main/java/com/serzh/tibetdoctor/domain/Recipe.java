@@ -31,8 +31,8 @@ public class Recipe {
     private Dosage dosage;
     @ManyToOne
     private DayTime dayTime;
-    @ManyToOne
-    private TimeRelativeMeal timeRelativeMeal;
+//    @ManyToOne
+//    private TimeRelativeMeal timeRelativeMeal;
     @ManyToOne
     private MealRelation mealRelation;
     private int durationTakingMedicines;

@@ -21,6 +21,15 @@
 
     <div>
         <form class="form-horizontal" th:object="${patient}" th:action="@{/patients}" method="post">
+
+<!--
+            <ul>
+                <li th:each="ty : ${allTypes}">
+                    <input type="radio" th:field="*{type}" th:value="${ty}" />
+                    <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+                </li>
+            </ul>-->
+
             <tr>
                 <td>
                     <input type="hidden" th:field="*{id}"/>

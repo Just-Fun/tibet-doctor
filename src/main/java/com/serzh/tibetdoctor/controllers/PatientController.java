@@ -2,7 +2,7 @@ package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Patient;
 import com.serzh.tibetdoctor.services.PatientService;
-import com.serzh.tibetdoctor.services.RecipesServiceImpl;
+import com.serzh.tibetdoctor.services.RecipesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class PatientController {
 
     private final PatientService patientService;
-    private final RecipesServiceImpl recipesService;
+//    private final RecipesServiceImpl recipesService;
+    private final RecipesService recipesService;
 
     @GetMapping
     public String list(Model model){
@@ -28,7 +29,7 @@ public class PatientController {
     @GetMapping("{id}")
     public String showPatient(@PathVariable Integer id, Model model){
         model.addAttribute("patient", patientService.getPatientById(id));
-        model.addAttribute("recipes", recipesService.findByPatient(id));
+        model.addAttribute("recipes", recipesService.getAllRecipesByPatientId(id));
         return "patientshow";
     }
 

@@ -18,6 +18,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Deprecated
 public class TimeRelativeMeal {
 
     @Id

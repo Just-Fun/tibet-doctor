@@ -10,9 +10,6 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <!--TODO think-->
-    <!--<li><a href="#" th:href="@{/recipies/new/patientid}">Сделать новое назначение.</a></li>-->
-
     <!--<form class="form-horizontal" th:action="@{/logout}" method="post">-->
     <!--<div class="form-group">-->
     <!--<div class="col-sm-10"><h2>Patient Details</h2></div>-->
@@ -37,43 +34,51 @@
              </div>
          </div>-->
 
-    <div class="col-sm-10"><h2>Patient</h2></div>
+    <div class="col-sm-10"><h2>Пациент</h2></div>
 
     <table class="table table-striped">
-        <tr>
-            <!--<th>Id</th>-->
-            <th>Пол</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Patronymic</th>
-            <th>Birthday</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>доп.инфа</th>
-        </tr>
+        <!--  <tr>
+              &lt;!&ndash;<th>Id</th>&ndash;&gt;
+              <th>пол</th>
+              <th>фамилия</th>
+              <th>имя</th>
+              <th>отчество</th>
+              <th>дата рождения</th>
+              <th>телефон</th>
+              <th>email</th>
+              <th>доп.инфа</th>
+          </tr>-->
         <tr>
             <td th:text="${patient.sex}">sex</td>
+            <!-- <td th:text="${patient.surname}">surname</td>
+             <td th:text="${patient.name}">name</td>
+             <td th:text="${patient.patronymic}">patronymic</td>-->
+            <td th:text="${patient.surname}">surname2</td>
             <td th:text="${patient.name}">name</td>
-            <td th:text="${patient.surname}">surname</td>
             <td th:text="${patient.patronymic}">patronymic</td>
             <td th:text="${patient.birthday}">birthday</td>
             <td th:text="${patient.phone}">phone</td>
             <td th:text="${patient.email}">email</td>
             <td th:text="${patient.additionalInfo}">additionalInfo</td>
+            <td><a th:href="${'/patients/edit/' + patient.id}">Edit</a></td>
         </tr>
     </table>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Назначения:</label>
 
+        <!--TODO think-->
+        <a th:href="${'/recipes/new/' + patient.id}">Сделать новое назначение.</a>
+        <!--<a href="#" th:href="@{'/recipes/new/' + patient.id}">Сделать новое назначение.</a>-->
+
         <table class="table table-striped">
             <tr>
-                <th>дата</th>
+                <th>дата приема</th>
                 <th>лекарство</th>
                 <th>дозировка</th>
-                <th>DayTime</th>
-                <th>время</th>
-                <th>еда</th>
+                <th>время суток</th>
+                <th>относительно еды</th>
+                <!--<th>еда</th>-->
                 <th>период приема(дни)</th>
                 <th>начало приема</th>
                 <th>прием с</th>
@@ -86,12 +91,13 @@
                 <td th:text="${recipe.drug.code}">Drug</td>
                 <td th:text="${recipe.dosage.value}">Dosage</td>
                 <td th:text="${recipe.dayTime.value}">DayTime</td>
-                <td th:text="${recipe.timeRelativeMeal.value}">TimeRelativeMeal</td>
+                <!--<td th:text="${recipe.timeRelativeMeal.value}">TimeRelativeMeal</td>-->
                 <td th:text="${recipe.mealRelation.value}">MealRelation</td>
                 <td th:text="${recipe.durationTakingMedicines}">DurationTakingMedicines</td>
                 <td th:text="${recipe.beginningTakingMedicines}">BeginningTakingMedicines</td>
                 <td th:text="${recipe.takeWith.value}">TakeWith</td>
                 <td th:text="${recipe.additionalInfo}">AdditionalInfo</td>
+                <td><a th:href="${'/recipes/edit/' + recipe.id}">Edit</a></td>
             </tr>
         </table>
 

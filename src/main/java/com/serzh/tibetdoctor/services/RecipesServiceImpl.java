@@ -5,16 +5,41 @@ import com.serzh.tibetdoctor.repositories.RecipesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 /**
  * @author sergii.zagryvyi on 30.11.2017
  */
 @Service
 @RequiredArgsConstructor
-public class RecipesServiceImpl {
+public class RecipesServiceImpl implements RecipesService {
 
     private final RecipesRepository recipesRepository;
 
-    public Iterable<Recipe> findByPatient(int id) {
+//    @Override
+//    public Iterable<Recipe> listAllRecipes() {
+//        return null;
+//    }
+
+    @Override
+    public Recipe getRecipeById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Recipe saveRecipe(Recipe recipe) {
+        recipe.setDate(LocalDate.now());
+        recipesRepository.save(recipe);
+        return recipe;
+    }
+
+    @Override
+    public void deleteRecipe(Integer id) {
+        recipesRepository.delete(id);
+
+    }
+
+    public Iterable<Recipe> getAllRecipesByPatientId(int id) {
         Iterable<Recipe> all = recipesRepository.findByPatientId( id);
         return all;
     }
