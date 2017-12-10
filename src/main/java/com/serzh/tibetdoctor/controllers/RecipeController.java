@@ -37,23 +37,12 @@ public class RecipeController {
     public String newRecipe(@PathVariable Integer id, Model model) {
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patient", patient);
-        Recipe recipe = Recipe.builder()
-                .patient(patient)
-                .additionalInfo("Try to set")
-                .build();
-
-        model.addAttribute("recipe", recipe);
-
-        Iterable<Drug> drugs = drugsService.listAllDrugs();
-        model.addAttribute("drugs", drugs);
-        Iterable<Dosage> dosages = dosageService.listAll();
-        model.addAttribute("dosages", dosages);
-        Iterable<DayTime> dayTimes = dayTimeService.listAll();
-        model.addAttribute("dayTimes", dayTimes);
-        Iterable<MealRelation> mealRelations = mealRelationService.listAll();
-        model.addAttribute("mealRelations", mealRelations);
-        Iterable<TakeWith> takeWiths = takeWithService.listAll();
-        model.addAttribute("takeWiths", takeWiths);
+        model.addAttribute("recipe", Recipe.builder().patient(patient).build());
+        model.addAttribute("drugs", drugsService.listAllDrugs());
+        model.addAttribute("dosages", dosageService.listAll());
+        model.addAttribute("dayTimes", dayTimeService.listAll());
+        model.addAttribute("mealRelations", mealRelationService.listAll());
+        model.addAttribute("takeWiths", takeWithService.listAll());
 
         return "recipeform";
     }

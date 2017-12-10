@@ -1,7 +1,8 @@
-package com.serzh.tibetdoctor.services;
+package com.serzh.tibetdoctor.services.impl;
 
 import com.serzh.tibetdoctor.domain.MealRelation;
 import com.serzh.tibetdoctor.repositories.MealRelationRepository;
+import com.serzh.tibetdoctor.services.MealRelationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

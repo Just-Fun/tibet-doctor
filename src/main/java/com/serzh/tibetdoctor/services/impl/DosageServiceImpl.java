@@ -1,7 +1,8 @@
-package com.serzh.tibetdoctor.services;
+package com.serzh.tibetdoctor.services.impl;
 
 import com.serzh.tibetdoctor.domain.Dosage;
 import com.serzh.tibetdoctor.repositories.DosageRepository;
+import com.serzh.tibetdoctor.services.DosageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

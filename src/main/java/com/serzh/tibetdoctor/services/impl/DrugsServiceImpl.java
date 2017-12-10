@@ -1,7 +1,8 @@
-package com.serzh.tibetdoctor.services;
+package com.serzh.tibetdoctor.services.impl;
 
 import com.serzh.tibetdoctor.domain.Drug;
 import com.serzh.tibetdoctor.repositories.DrugsRepository;
+import com.serzh.tibetdoctor.services.DrugsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
