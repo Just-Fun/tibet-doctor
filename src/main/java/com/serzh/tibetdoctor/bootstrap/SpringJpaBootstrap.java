@@ -26,6 +26,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private final TimeRelativeMealRepository timeRelativeMealRepository;
     private final MealRelationRepository mealRelationRepository;
     private final TakeWithRepository takeWithRepository;
+    private final DrugTypeRepository drugTypeRepository;
 
     @Override
     @Transactional
@@ -194,10 +195,12 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private List<Drug> createDrugs() {
         List<Drug> result = new ArrayList<>();
 
+        DrugType drugType = createDrugTypes().get(0);
+
         Drug drug1 = Drug.builder()
                 .code("AD4")
                 .name("adelito")
-                .type("порошек")
+                .type(drugType)
                 .available(500)
                 .build();
 
@@ -207,7 +210,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         Drug drug2 = Drug.builder()
                 .code("DF5")
                 .name("Agar")
-                .type("порошек")
+                .type(drugType)
                 .build();
 
         drugsRepository.save(drug2);
@@ -215,6 +218,24 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         result.add(drug1);
         result.add(drug2);
+
+        return result;
+    }
+
+    private List<DrugType> createDrugTypes() {
+        List<DrugType> result = new ArrayList<>();
+        DrugType drugType1 = DrugType.builder()
+                .value("порошек")
+                .build();
+        drugTypeRepository.save(drugType1);
+
+        DrugType drugType2 = DrugType.builder()
+                .value("жидкость")
+                .build();
+        drugTypeRepository.save(drugType2);
+
+        result.add(drugType1);
+        result.add(drugType2);
 
         return result;
     }

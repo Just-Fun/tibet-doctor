@@ -12,7 +12,7 @@ class DrugsServiceKotlin(private val drugsRepository: DrugsRepository) {
 
     fun get(id: Int): Drug = drugsRepository.findOne(id)
 
-    fun add(product: Drug): Drug = drugsRepository.save(product)
+    fun save(product: Drug): Drug = drugsRepository.save(product)
 
 //    fun edit(id: Long, product: Drug): Drug = drugsRepository.save(product.copy(id = id)) // Сохраняем копию объекта с указанным id в БД
 
