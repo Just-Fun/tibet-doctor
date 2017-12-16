@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +36,7 @@ public class Patient {
     private LocalDate birthday;
 //    @Pattern(regexp = "(^$|[0-9]{10})")
     private String phone;
-    @Email(message = "Email should be valid")
+//    @Email(message = "Email should be valid")
     private String email;
     private String contacts;
     private String additionalInfo;

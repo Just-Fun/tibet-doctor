@@ -44,6 +44,7 @@ public class PatientController {
     @GetMapping("new")
     public String newPatient(Model model){
         model.addAttribute(PATIENT, new Patient());
+        model.addAttribute("sexes", SexEnum.getSexList());
         return "patientform";
     }
 
