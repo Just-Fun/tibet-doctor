@@ -22,17 +22,21 @@
     <div>
         <form class="form-horizontal" th:object="${patient}" th:action="@{/patients}" method="post">
 
-<!--
-            <ul>
-                <li th:each="ty : ${allTypes}">
-                    <input type="radio" th:field="*{type}" th:value="${ty}" />
-                    <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
-                </li>
-            </ul>-->
+            <!--
+                        <ul>
+                            <li th:each="ty : ${allTypes}">
+                                <input type="radio" th:field="*{type}" th:value="${ty}" />
+                                <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+                            </li>
+                        </ul>-->
 
             <tr>
                 <td>
                     <input type="hidden" th:field="*{id}"/>
+                </td>
+
+
+                <td>
                     <!--<input type="hidden" th:field="*{name}"/>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name:</label>
@@ -50,14 +54,87 @@
                     </div>
                 </td>
                 <td>
-                    <div class="form-horizontal">
+                    <!--<div class="form-horizontal">-->
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Patronymic:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" th:field="*{patronymic}"/>
                         </div>
                     </div>
                 </td>
+                <td>
+                    <!-- <div class="form-group">
+                         <label class="col-sm-2 control-label">Выберите лекарство: </label>
+                         <div class="col-sm-10">
+                             <select th:field="*{drug}">
+                                 <option th:each="drug : ${drugs}"
+                                         th:value="${drug.id}"
+                                         th:text="${drug.code}">Лекарство:
+                                 </option>
+                             </select>
+                         </div>
+                     </div>-->
+
+
+                    <!--<div class="form-horizontal">-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sex:</label>
+                        <div class="col-sm-10">
+                            <select th:field="*{sex}">
+                                <option th:each="sex : ${sexes}"
+                                        th:value="${sex}"
+                                        th:text="${sex}">Лекарство:
+                                </option>
+                            </select>
+                            <!--<input type="text" class="form-control" th:field="*{sex}"/>-->
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!--<div class="form-horizontal">-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Birthday:</label>
+                        <div class="col-sm-10">
+                            <!--TODO fix format(now instead of 1980 -> 2080)-->
+                            <input type="text" class="form-control" th:field="*{birthday}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!--<div class="form-horizontal">-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Phone:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{phone}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Email:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{email}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Contacts:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{contacts}"/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Additional Info:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{additionalInfo}"/>
+                        </div>
+                    </div>
+                </td>
             </tr>
+
             <!--<div class="form-group">
                 <label class="col-sm-2 control-label">Price:</label>
                 <div class="col-sm-10">
@@ -75,8 +152,14 @@
             </div>
         </form>
 
+        <div>
+            <form class="form-horizontal" th:action="@{/patients}" method="get">
+                <div class="row">
+                    <button type="submit" class="btn btn-default">Отменить</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 </body>
 </html>

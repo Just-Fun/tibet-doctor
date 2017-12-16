@@ -32,8 +32,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         Patient patient1 = Patient.builder()
-//                .sex(Sex.MALE)
-                .sex(Sex.MALE.getTemplate())
+                .sex(SexEnum.MALE.getSex())
                 .name("Владимир")
                 .patronymic("Васильевич")
                 .surname("Иванов")
@@ -54,7 +53,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         Recipe recipe1 = Recipe.builder()
                 .patient(patient1)
-                .date(LocalDate.now())
+                .date(LocalDate.now().minusDays(2))
                 .drug(drugs.get(0))
                 .dosage(dosages.get(0))
                 .dayTime(dayTimes.get(0))
@@ -70,7 +69,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         Recipe recipe2 = Recipe.builder()
                 .patient(patient1)
-                .date(LocalDate.now())
+                .date(LocalDate.now().minusMonths(1))
                 .drug(drugs.get(1))
                 .dosage(dosages.get(1))
                 .dayTime(dayTimes.get(1))
@@ -86,7 +85,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         Patient patient2 = Patient.builder()
                 .name("Jolly")
-                .sex(Sex.FEMALE.getTemplate())
+                .sex(SexEnum.FEMALE.getSex())
                 .surname("Vahtangovna")
                 .phone("0506784567")
                 .build();

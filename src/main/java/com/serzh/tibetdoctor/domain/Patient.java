@@ -27,7 +27,6 @@ public class Patient {
     private Integer id;
 
     //    @NotNull(message = "Name cannot be null")
-//    private Sex sex;
     private String sex;
     private String name;
     private String patronymic;

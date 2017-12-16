@@ -41,7 +41,7 @@ public class RecipesServiceImpl implements RecipesService {
     }
 
     public Iterable<Recipe> getAllRecipesByPatientId(int id) {
-        Iterable<Recipe> all = recipesRepository.findByPatientId( id);
+        Iterable<Recipe> all = recipesRepository.findByPatientIdOrderByDateDesc( id);
         return all;
     }
 

@@ -26,9 +26,9 @@
         <table class="table table-striped">
             <tr>
                 <!--<th>Id</th>-->
+                <th>Surname</th>
                 <th>Name</th>
                 <th>Sex</th>
-                <th>Surname</th>
                 <th>Назначения</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -38,9 +38,9 @@
             </tr>
             <tr th:each="patient : ${patients}">
                 <!--<td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>-->
+                <td th:text="${patient.surname}">Surname</td>
                 <td th:text="${patient.name}">Name</td>
                 <td th:text="${patient.sex}">Sex</td>
-                <td th:text="${patient.surname}">Surname</td>
                 <td><a th:href="${'/patients/' + patient.id}">Назначения</a></td>
                 <td><a th:href="${'/patients/edit/' + patient.id}">Edit</a></td>
                 <td><a th:href="${'/patients/delete/' + patient.id}">Delete</a></td>

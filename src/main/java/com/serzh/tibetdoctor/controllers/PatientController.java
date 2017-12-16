@@ -1,6 +1,7 @@
 package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Patient;
+import com.serzh.tibetdoctor.domain.SexEnum;
 import com.serzh.tibetdoctor.services.PatientService;
 import com.serzh.tibetdoctor.services.RecipesService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PatientController {
 
+    public static final String PATIENT = "patient";
     private final PatientService patientService;
-//    private final RecipesServiceImpl recipesService;
     private final RecipesService recipesService;
 
     @GetMapping
@@ -28,20 +29,21 @@ public class PatientController {
 
     @GetMapping("{id}")
     public String showPatient(@PathVariable Integer id, Model model){
-        model.addAttribute("patient", patientService.getPatientById(id));
+        model.addAttribute(PATIENT, patientService.getPatientById(id));
         model.addAttribute("recipes", recipesService.getAllRecipesByPatientId(id));
         return "patientshow";
     }
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("patient", patientService.getPatientById(id));
+        model.addAttribute(PATIENT, patientService.getPatientById(id));
+        model.addAttribute("sexes", SexEnum.getSexList());
         return "patientform";
     }
 
     @GetMapping("new")
     public String newPatient(Model model){
-        model.addAttribute("patient", new Patient());
+        model.addAttribute(PATIENT, new Patient());
         return "patientform";
     }
 
