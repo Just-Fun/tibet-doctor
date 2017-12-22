@@ -32,6 +32,23 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
+        for (int i = 0; i < 10; i++) {
+
+            Patient patient = Patient.builder()
+                    .sex(SexEnum.MALE.getSex())
+                    .name("Zed")
+                    .patronymic("Васильевич")
+                    .surname("Иванов")
+                    .birthday(LocalDate.of(1980, 3, 11))
+                    .phone(String.valueOf(i))
+                    .email("jim@gmail.com")
+                    .contacts("skype - vladimir.i, facebook - vladimir.ivanov")
+                    .additionalInfo("Обычно опаздывает на прием.")
+                    .build();
+
+            patientRepository.save(patient);
+        }
+
         Patient patient1 = Patient.builder()
                 .sex(SexEnum.MALE.getSex())
                 .name("Владимир")
@@ -64,6 +81,9 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
                 .takeWith(takeWiths.get(0))
                 .additionalInfo("Пить через день")
+                .procedures("Обливания")
+                .diet("Пить много кипятка")
+                .lifestyle("Плавать")
                 .build();
 
         recipesRepository.save(recipe1);
@@ -80,6 +100,9 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
                 .takeWith(takeWiths.get(1))
                 .additionalInfo("Прописан массаж кунье.")
+                .procedures("Обливания по утрам")
+                .diet("Пить много охлажденного кипятка")
+                .lifestyle("бегать")
                 .build();
 
         recipesRepository.save(recipe2);

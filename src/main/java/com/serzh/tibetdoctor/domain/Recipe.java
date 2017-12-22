@@ -40,6 +40,10 @@ public class Recipe {
     @ManyToOne
     private TakeWith takeWith;
 
+    private String procedures;
+    private String diet;
+    private String lifestyle;
+
     private String additionalInfo;
 
 

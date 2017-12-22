@@ -83,6 +83,9 @@
                 <th>начало приема</th>
                 <th>прием с</th>
                 <th>доп.инфа</th>
+                <th>процедуры</th>
+                <th>диета</th>
+                <th>поведение</th>
             </tr>
             <tr th:each="recipe : ${recipes}">
                 <!--<td th:text="${patient.name}">Name</td>-->
@@ -97,6 +100,9 @@
                 <td th:text="${recipe.beginningTakingMedicines}">BeginningTakingMedicines</td>
                 <td th:text="${recipe.takeWith.value}">TakeWith</td>
                 <td th:text="${recipe.additionalInfo}">AdditionalInfo</td>
+                <td th:text="${recipe.procedures}">Procedures</td>
+                <td th:text="${recipe.diet}">Diet</td>
+                <td th:text="${recipe.lifestyle}">Lifestyle</td>
                 <td><a th:href="${'/recipes/edit/' + recipe.id}">Edit</a></td>
             </tr>
         </table>
