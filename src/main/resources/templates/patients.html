@@ -5,8 +5,44 @@
     <title>Tibet Doctor </title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+    <style type="text/css">
+        .tg-m td {
+            padding: 4px 20px;
+            border: 1px solid;
+            overflow: hidden;
+            word-break: normal;
+            background-color: #fff;
+        }
+
+        .tg-m th {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px 20px;
+            border: 1px solid;
+            overflow: hidden;
+            word-break: normal;
+            background-color: #f0f0f0;
+        }
+
+        /*.imageClass{
+            background: url('https://store.smosh.com/themes/default/img/no-image.jpg') no-repeat;
+            background-size: auto 200px;
+            background-position: center;
+        }
+        .photoClass{
+            background: url('https://store.smosh.com/themes/default/img/no-image.jpg') no-repeat;
+            background-size: auto 100px;
+            background-position: center;
+        }*/
+        p {
+            text-align: center;
+        }
+    </style>
+
 </head>
-<body>
+<body th:with="maxLengthShow=3">
+
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
@@ -15,14 +51,14 @@
 
 
     <div class="col-sm-8"><h2>Пациенты</h2></div>
-    <input class="col-sm-6">
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по имени..."></input>
+    <div class="col-sm-2">
+        <input type="text" id="inputSurname" onkeyup="searchOnSurname()"
+               placeholder="Поиск по фамилии..."></input>
+        <input type="text" id="inputName" onkeyup="searchOnName()"
+               placeholder="Поиск по имени..."></input>
     </div>
 
-<!--table tbody tr:nth-last-child(-n+3) {-->
-<!--display: none;-->
-<!--}-->
-
+    <!--<input id="myUL" th:if="${not #lists.isEmpty(patients)}">-->
     <div id="myUL" th:if="${not #lists.isEmpty(patients)}">
         <!--<form th:action="@{/logout}" method="post">-->
         <!--<div class="col-sm-2" style="padding-top: 30px;">-->
@@ -36,17 +72,20 @@
         <table id="myTable" class="table table-striped">
             <tr>
                 <!--<th>Id</th>-->
-                <th>Surname</th>
-                <th>Name</th>
-                <th>Sex</th>
-                <th>Назначения</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>фамилия</th>
+                <th>имя</th>
+                <th>пол</th>
+                <th>назначения</th>
+                <th>редактировать</th>
+                <th>удалить</th>
                 <!--<th sec:authorize="hasAnyAuthority('USER','ADMIN')">View</th>-->
                 <!--<th sec:authorize="hasAuthority('ADMIN')">Edit</th>-->
                 <!--<th sec:authorize="hasAuthority('ADMIN')">Delete</th>-->
             </tr>
+            <!--<tr th:each="patient,iteratorStatus : ${patients}">-->
             <tr th:each="patient : ${patients}">
+                <!--th:style="${iteratorStatus.index>maxLengthShow} ? 'display:none'">-->
+                <!--<td th:text="${iteratorStatus.count}">1</td>-->
                 <!--<td th:text="${patient.id}"><a href="/patient/${patient.id}">Id</a></td>-->
                 <td th:text="${patient.surname}">Surname</td>
                 <td th:text="${patient.name}">Name</td>
@@ -60,15 +99,73 @@
             </tr>
         </table>
 
+
+        <!--<button type="button" onclick="showMore()" class="btn btn-default"-->
+        <!--th:if="${#lists.size(patients)>maxLengthShow}">showMore</button>-->
+        <!--</input>-->
     </div>
 </div>
+<button type="button" id="seeMoreRecords" class="btn btn-default">Показать больше</button>
+<!--<input type="button" id="seeMoreRecords" value="More"></input>-->
+<input type="button" id="seeLessRecords" value="Less"></input>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    function myFunction() {
+
+    var trs = $("#myTable tr");
+    var btnMore = $("#seeMoreRecords");
+    var btnLess = $("#seeLessRecords");
+    var trsLength = trs.length;
+    var currentIndex = 5;
+    var increment = 5;
+
+    trs.hide();
+    // trs.slice(0, 10).show();
+    trs.slice(0, currentIndex).show();
+    checkButton();
+
+    btnMore.click(function (e) {
+        e.preventDefault();
+        $("#myTable tr").slice(currentIndex, currentIndex + increment).show();
+        currentIndex += increment;
+        checkButton();
+    });
+
+    btnLess.click(function (e) {
+        e.preventDefault();
+        $("#myTable tr").slice(currentIndex - increment, currentIndex).hide();
+        currentIndex -= increment;
+        checkButton();
+    });
+
+    function checkButton() {
+        var currentLength = $("#myTable tr:visible").length;
+
+        if (currentLength >= trsLength) {
+            btnMore.hide();
+        } else {
+            btnMore.show();
+        }
+
+        if (trsLength > increment && currentLength > increment) {
+            btnLess.show();
+        } else {
+            btnLess.hide();
+        }
+
+    }
+
+    /* function showMore() {
+         var maxLengthShow1 = /!*[[${maxLengthShow}]]*!/ 'maxLengthShow1';
+         maxLengthShow1 += 3;
+         var maxLengthShow2 = /!*[[${maxLengthShow}]]*!/ 'maxLengthShow';
+         alert(maxLengthShow2);
+     }*/
+
+    function searchOnSurname() {
         // Declare variables
         var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
+        input = document.getElementById("inputSurname");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
         tr = table.getElementsByTagName("tr");
@@ -86,8 +183,40 @@
         }
     }
 
+    function searchOnName() {
+        // Declare variables
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("inputName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
     /*]]>*/
 </script>
+
+<!--<div class="row" style="text-align: center;">
+    <p th:if="${error != null}" th:text="'Failed to update plant. Error: ' + ${error}" style="color: red; font-size: 16px; text-align: center"></p>
+    <button type="button" th:onclick="'javascript:deletePlant(\'' + ${plant.id} + '\');'" class="btn btn-default">Delete</button>
+    <button type="submit" id="submit" class="btn btn-default">Update</button>
+</div>
+<script type="text/javascript">
+    function deletePlant(id) {
+        location.href = "/plant/" + id + "/delete";
+    }
+</script>-->
 
 <!--<p id="demo">Click the button to change the layout of this paragraph</p>
 
@@ -100,6 +229,5 @@
 </script>
 
 <button onclick="myFunction()">Click Me!</button>-->
-
 </body>
 </html>

@@ -23,7 +23,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private final RecipesRepository recipesRepository;
     private final DosageRepository dosageRepository;
     private final DayTimeRepository dayTimeRepository;
-    private final TimeRelativeMealRepository timeRelativeMealRepository;
     private final MealRelationRepository mealRelationRepository;
     private final TakeWithRepository takeWithRepository;
     private final DrugTypeRepository drugTypeRepository;
@@ -66,7 +65,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         List<Dosage> dosages = createDosage();
         List<DayTime> dayTimes = createDayTimes();
         List<MealRelation> mealRelations = createRelativeMeal();
-//        List<TimeRelativeMeal> timeRelativeMeals = createTimeRelativeMeal();
         List<TakeWith> takeWiths = createTakeWiths();
 
         Recipe recipe1 = Recipe.builder()
@@ -179,25 +177,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         return mealRelations;
     }
-/*
-    private List<TimeRelativeMeal> createTimeRelativeMeal() {
-        List<TimeRelativeMeal> timeRelativeMeals = new ArrayList<>();
-        TimeRelativeMeal minutes = TimeRelativeMeal.builder()
-                .value("15 минут")
-                .build();
-
-        timeRelativeMealRepository.save(minutes);
-
-        TimeRelativeMeal hour = TimeRelativeMeal.builder()
-                .value("1 час")
-                .build();
-
-        timeRelativeMealRepository.save(hour);
-
-        timeRelativeMeals.add(minutes);
-        timeRelativeMeals.add(hour);
-        return timeRelativeMeals;
-    }*/
 
     private List<Dosage> createDosage() {
         List<Dosage> dosages = new ArrayList<>();
