@@ -58,6 +58,11 @@
                placeholder="Поиск по имени..."></input>
     </div>
 
+    <div class="tags">
+        <label><input type="checkbox" rel="man"/>м</label>
+        <label><input type="checkbox" rel="woman"/>ж</label>
+    </div>
+
     <!--<input id="myUL" th:if="${not #lists.isEmpty(patients)}">-->
     <div id="myUL" th:if="${not #lists.isEmpty(patients)}">
         <!--<form th:action="@{/logout}" method="post">-->
@@ -112,6 +117,29 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 
+
+    $(document).ready(function () {
+        $('div.tags').find('input:checkbox').live('click', function () {
+            // $('.results > li').hide();
+            var input, filter, table, tr, sex, i;
+            // var array = $('div.tags').find('input:checked');
+            $('div.tags').find('input:checked');
+
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                sex = tr[i].getElementsByTagName("td")[2];
+                if (sex) {
+                    if (array.includes(sex.innerHTML.toUpperCase())) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+    });
+
     var trs = $("#myTable tr");
     var btnMore = $("#seeMoreRecords");
     var btnLess = $("#seeLessRecords");
@@ -164,7 +192,7 @@
 
     function searchOnSurname() {
         // Declare variables
-        var input, filter, table, tr, td, i;
+        var input, filter, table, tr, surname, i;
         input = document.getElementById("inputSurname");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
@@ -172,9 +200,9 @@
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 1; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            surname = tr[i].getElementsByTagName("td")[0];
+            if (surname) {
+                if (surname.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -185,7 +213,7 @@
 
     function searchOnName() {
         // Declare variables
-        var input, filter, table, tr, td, i;
+        var input, filter, table, tr, name, i;
         input = document.getElementById("inputName");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
@@ -193,9 +221,9 @@
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 1; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            name = tr[i].getElementsByTagName("td")[1];
+            if (name) {
+                if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
