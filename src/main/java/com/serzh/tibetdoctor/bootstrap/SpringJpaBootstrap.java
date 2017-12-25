@@ -31,7 +31,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
 
             Patient patient = Patient.builder()
                     .sex(SexEnum.MALE.getSex())

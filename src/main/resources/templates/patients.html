@@ -53,15 +53,18 @@
     <div class="col-sm-8"><h2>Пациенты</h2></div>
     <div class="col-sm-2">
         <input type="text" id="inputSurname" onkeyup="searchOnSurname()"
-               placeholder="Поиск по фамилии..."></input>
+               placeholder="Поиск по фамилии..."/>
+        <!--placeholder="Поиск по фамилии..."></input>-->
         <input type="text" id="inputName" onkeyup="searchOnName()"
-               placeholder="Поиск по имени..."></input>
+               placeholder="Поиск по имени..."/>
     </div>
 
-    <div class="tags">
-        <label><input type="checkbox" rel="man"/>м</label>
-        <label><input type="checkbox" rel="woman"/>ж</label>
-    </div>
+    <form id="fgender" action="">
+        <input type="radio" name="gender" value="all" onclick="if(this.checked){genders(value)}"/>все<br/>
+        <input type="radio" name="gender" value="м" onclick="if(this.checked){genders(value)}"/>мужчины<br/>
+        <input type="radio" name="gender" value="ж" onclick="if(this.checked){genders(value)}"/>женщины
+    </form>
+
 
     <!--<input id="myUL" th:if="${not #lists.isEmpty(patients)}">-->
     <div id="myUL" th:if="${not #lists.isEmpty(patients)}">
@@ -117,28 +120,32 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 
+    function genders(gender) {
+        var sex, table, tr, i;
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
-    $(document).ready(function () {
-        $('div.tags').find('input:checkbox').live('click', function () {
-            // $('.results > li').hide();
-            var input, filter, table, tr, sex, i;
-            // var array = $('div.tags').find('input:checked');
-            $('div.tags').find('input:checked');
-
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
+        if (gender === 'all') {
+            for (i = 1; i < tr.length; i++) {
+                // sex = tr[i].getElementsByTagName("td")[2];
+                // var patientGender = sex.innerHTML;
+                tr[i].style.display = "";
+            }
+        } else {
             for (i = 1; i < tr.length; i++) {
                 sex = tr[i].getElementsByTagName("td")[2];
                 if (sex) {
-                    if (array.includes(sex.innerHTML.toUpperCase())) {
+                    // if (sex.innerHTML.toUpperCase().indexOf(gender) > -1) {
+                    var patientGender = sex.innerHTML;
+                    if (patientGender === gender) {
                         tr[i].style.display = "";
                     } else {
                         tr[i].style.display = "none";
                     }
                 }
             }
-        });
-    });
+        }
+    }
 
     var trs = $("#myTable tr");
     var btnMore = $("#seeMoreRecords");
@@ -148,7 +155,6 @@
     var increment = 5;
 
     trs.hide();
-    // trs.slice(0, 10).show();
     trs.slice(0, currentIndex).show();
     checkButton();
 
