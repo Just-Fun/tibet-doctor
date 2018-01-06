@@ -18,7 +18,22 @@ public class DrugsServiceImpl implements DrugsService {
     private final DrugsRepository drugsRepository;
 
     @Override
-    public Iterable<Drug> listAllDrugs() {
+    public Iterable<Drug> all() {
         return drugsRepository.findAll();
+    }
+
+    @Override
+    public Drug get(Integer id) {
+        return drugsRepository.findOne(id);
+    }
+
+    @Override
+    public Drug save(Drug drug) {
+        return drugsRepository.save(drug);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        drugsRepository.delete(id);
     }
 }

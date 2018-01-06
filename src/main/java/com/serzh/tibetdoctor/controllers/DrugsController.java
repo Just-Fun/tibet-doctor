@@ -2,8 +2,8 @@ package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Drug;
 import com.serzh.tibetdoctor.domain.DrugType;
-import com.serzh.tibetdoctor.services.DrugTypeServiceKotlin;
-import com.serzh.tibetdoctor.services.DrugsServiceKotlin;
+import com.serzh.tibetdoctor.services.DrugTypeService;
+import com.serzh.tibetdoctor.services.DrugsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DrugsController {
 
     private static final String DRUG = "drug";
-    private final DrugsServiceKotlin drugsService;
-    private final DrugTypeServiceKotlin drugTypeService;
+    private final DrugsService drugsService;
+    private final DrugTypeService drugTypeService;
 
     @GetMapping
     public String list(Model model) {

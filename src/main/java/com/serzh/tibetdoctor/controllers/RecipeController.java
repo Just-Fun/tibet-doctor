@@ -69,7 +69,7 @@ public class RecipeController {
     }
 
     private void addAllForRecipes(Model model) {
-        model.addAttribute("drugs", drugsService.listAllDrugs());
+        model.addAttribute("drugs", drugsService.all());
         model.addAttribute("dosages", dosageService.listAll());
         model.addAttribute("dayTimes", dayTimeService.listAll());
         model.addAttribute("mealRelations", mealRelationService.listAll());

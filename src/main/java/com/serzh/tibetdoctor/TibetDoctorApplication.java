@@ -1,9 +1,12 @@
 package com.serzh.tibetdoctor;
 
-//@SpringBootApplication
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class TibetDoctorApplication {
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		SpringApplication.run(TibetDoctorApplication.class, args);
-	}*/
+	}
 }
