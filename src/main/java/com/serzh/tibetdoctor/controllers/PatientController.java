@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PatientController {
 
-    public static final String PATIENT = "patient";
+    private static final String PATIENT = "patient";
     private final PatientService patientService;
     private final RecipesService recipesService;
 
@@ -54,7 +54,7 @@ public class PatientController {
         return "redirect:/patients/" + savedPatient.getId();
     }
 
-    @GetMapping("patients/delete/{id}")
+    @GetMapping("delete/{id}")
     public String delete(@PathVariable Integer id){
         patientService.deletePatient(id);
         return "redirect:/patients";

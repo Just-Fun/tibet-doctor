@@ -24,7 +24,7 @@ public class RecipesServiceImpl implements RecipesService {
 
     @Override
     public Recipe getRecipeById(Integer id) {
-        return null;
+        return recipesRepository.findOne(id);
     }
 
     @Override

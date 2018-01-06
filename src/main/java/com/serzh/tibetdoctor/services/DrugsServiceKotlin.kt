@@ -16,5 +16,5 @@ class DrugsServiceKotlin(private val drugsRepository: DrugsRepository) {
 
 //    fun edit(id: Long, product: Drug): Drug = drugsRepository.save(product.copy(id = id)) // Сохраняем копию объекта с указанным id в БД
 
-    fun remove(id: Int) = drugsRepository.delete(id)
+    fun delete(id: Int) = drugsRepository.delete(id)
 }

@@ -14,14 +14,14 @@
 
     <div th:if="${not #lists.isEmpty(drugs)}">
         <!--<form th:action="@{/logout}" method="post">-->
-            <div class="col-sm-10"><h2>Список лекарств</h2></div>
-            <!--<div class="col-sm-2" style="padding-top: 30px;">-->
-                     <!--<span sec:authorize="isAuthenticated()">-->
+        <div class="col-sm-10"><h2>Список лекарств</h2></div>
+        <!--<div class="col-sm-2" style="padding-top: 30px;">-->
+        <!--<span sec:authorize="isAuthenticated()">-->
 
 
-                    <!--<input type="submit" value="Sign Out" />-->
-                               <!--</span>-->
-            <!--</div>-->
+        <!--<input type="submit" value="Sign Out" />-->
+        <!--</span>-->
+        <!--</div>-->
         <!--</form>-->
         <table class="table table-striped">
             <tr>
@@ -31,7 +31,7 @@
                 <th>Type</th>
                 <!--<th>Description</th>-->
                 <!--<th>Price</th>-->
-                <th>View</th>
+                <!--<th>View</th>-->
                 <th>Edit</th>
                 <th>Delete</th>
                 <!--<th sec:authorize="hasAnyAuthority('USER','ADMIN')">View</th>-->

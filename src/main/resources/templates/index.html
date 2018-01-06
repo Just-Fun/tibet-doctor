@@ -20,6 +20,9 @@
             <!--<h3>Spring Boot Web App</h3>-->
         </div>
     </div>
+
+    <p class="alert alert-danger" th:if="${error != null}" th:text="${error}"></p>
+
     <div class="row text-center">
         <img src="../static/images/Coat_of_Arms_of_Tibet.png" width="400"
              th:src="@{/images/Coat_of_Arms_of_Tibet.png}"/>

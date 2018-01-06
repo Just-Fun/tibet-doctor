@@ -38,14 +38,11 @@ public class RecipeController {
         Patient patient = patientService.getPatientById(id);
         model.addAttribute("patient", patient);
         model.addAttribute("recipe", Recipe.builder().patient(patient).build());
-        model.addAttribute("drugs", drugsService.listAllDrugs());
-        model.addAttribute("dosages", dosageService.listAll());
-        model.addAttribute("dayTimes", dayTimeService.listAll());
-        model.addAttribute("mealRelations", mealRelationService.listAll());
-        model.addAttribute("takeWiths", takeWithService.listAll());
+        addAllForRecipes(model);
 
         return "recipeform";
     }
+
 
     /*@GetMapping("{id}")
     public String showRecipe(@PathVariable Integer id, Model model) {
@@ -53,18 +50,30 @@ public class RecipeController {
         model.addAttribute("recipes", recipesService.getAllRecipesByPatientId(id));
         return "patientshow";
     }*/
-
     @GetMapping("edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("recipe", recipesService.getRecipeById(id));
+        Recipe recipe = recipesService.getRecipeById(id);
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("patient", recipe.getPatient());
+        addAllForRecipes(model);
+
         return "recipeform";
     }
 
     //    after adding new recipe - show patient with all recipes
+
     @PostMapping
     public String saveRecipe(Recipe recipe) {
         Recipe savedRecipe = recipesService.saveRecipe(recipe);
         return "redirect:/patients/" + savedRecipe.getPatient().getId();
+    }
+
+    private void addAllForRecipes(Model model) {
+        model.addAttribute("drugs", drugsService.listAllDrugs());
+        model.addAttribute("dosages", dosageService.listAll());
+        model.addAttribute("dayTimes", dayTimeService.listAll());
+        model.addAttribute("mealRelations", mealRelationService.listAll());
+        model.addAttribute("takeWiths", takeWithService.listAll());
     }
 
 /*    @GetMapping("new")
