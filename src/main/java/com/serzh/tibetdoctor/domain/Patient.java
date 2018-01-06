@@ -42,15 +42,15 @@ public class Patient {
     private String additionalInfo;
 
     /*@OneToMany(fetch = FetchType.LAZY)
-    private List<Recipe> recipes;
+    private List<Appointment> appointments;
 
-    public void setRecipes(Recipe recipe) {
-        if (CollectionUtils.isEmpty(recipes)) {
-            recipes = new ArrayList<>();
+    public void setAppointments(Appointment appointment) {
+        if (CollectionUtils.isEmpty(appointments)) {
+            appointments = new ArrayList<>();
         }
-        if (recipe.getPatient() == null) {
-            recipe.setPatient(this);
-            recipes.add(recipe);
+        if (appointment.getPatient() == null) {
+            appointment.setPatient(this);
+            appointments.add(appointment);
         }
     }*/
 

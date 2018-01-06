@@ -34,7 +34,7 @@
              </div>
          </div>-->
 
-    <div class="col-sm-10"><h2>Пациент</h2></div>
+    <div class="col-sm-10"><h3>Пациент</h3></div>
 
     <table class="table table-striped">
           <tr>
@@ -50,9 +50,6 @@
           </tr>
         <tr>
             <td th:text="${patient.sex}">sex</td>
-            <!-- <td th:text="${patient.surname}">surname</td>
-             <td th:text="${patient.name}">name</td>
-             <td th:text="${patient.patronymic}">patronymic</td>-->
             <td th:text="${patient.surname}">surname2</td>
             <td th:text="${patient.name}">name</td>
             <td th:text="${patient.patronymic}">patronymic</td>
@@ -65,11 +62,9 @@
     </table>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">Назначения:</label>
+        <label class="col-sm-2 control-label">Приемы:</label>
 
-        <!--TODO think-->
-        <a th:href="${'/recipes/new/' + patient.id}">Сделать новое назначение.</a>
-        <!--<a href="#" th:href="@{'/recipes/new/' + patient.id}">Сделать новое назначение.</a>-->
+        <a th:href="${'/appointments/new/' + patient.id}">Новый прием</a>
 
         <table class="table table-striped">
             <tr>
@@ -87,22 +82,22 @@
                 <th>диета</th>
                 <th>поведение</th>
             </tr>
-            <tr th:each="recipe : ${recipes}">
+            <tr th:each="appointment : ${appointments}">
                 <!--<td th:text="${patient.name}">Name</td>-->
                 <!--<td><a th:href="${'/patient/show/' + patient.id}">View</a></td>-->
-                <td th:text="${recipe.date}">Date</td>
-                <td th:text="${recipe.drug.code}">Drug</td>
-                <td th:text="${recipe.dosage.value}">Dosage</td>
-                <td th:text="${recipe.dayTime.value}">DayTime</td>
-                <td th:text="${recipe.mealRelation.value}">MealRelation</td>
-                <td th:text="${recipe.durationTakingMedicines}">DurationTakingMedicines</td>
-                <td th:text="${recipe.beginningTakingMedicines}">BeginningTakingMedicines</td>
-                <td th:text="${recipe.takeWith.value}">TakeWith</td>
-                <td th:text="${recipe.additionalInfo}">AdditionalInfo</td>
-                <td th:text="${recipe.procedures}">Procedures</td>
-                <td th:text="${recipe.diet}">Diet</td>
-                <td th:text="${recipe.lifestyle}">Lifestyle</td>
-                <td><a th:href="${'/recipes/edit/' + recipe.id}">Edit</a></td>
+                <td th:text="${appointment.date}">Date</td>
+                <td th:text="${appointment.drug.code}">Drug</td>
+                <td th:text="${appointment.dosage.value}">Dosage</td>
+                <td th:text="${appointment.dayTime.value}">DayTime</td>
+                <td th:text="${appointment.mealRelation.value}">MealRelation</td>
+                <td th:text="${appointment.durationTakingMedicines}">DurationTakingMedicines</td>
+                <td th:text="${appointment.beginningTakingMedicines}">BeginningTakingMedicines</td>
+                <td th:text="${appointment.takeWith.value}">TakeWith</td>
+                <td th:text="${appointment.additionalInfo}">AdditionalInfo</td>
+                <td th:text="${appointment.procedures}">Procedures</td>
+                <td th:text="${appointment.diet}">Diet</td>
+                <td th:text="${appointment.lifestyle}">Lifestyle</td>
+                <td><a th:href="${'/appointments/edit/' + appointment.id}">Edit</a></td>
             </tr>
         </table>
 

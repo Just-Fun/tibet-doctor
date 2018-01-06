@@ -2,8 +2,8 @@ package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Patient;
 import com.serzh.tibetdoctor.domain.SexEnum;
+import com.serzh.tibetdoctor.services.AppointmentService;
 import com.serzh.tibetdoctor.services.PatientService;
-import com.serzh.tibetdoctor.services.RecipesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ public class PatientController {
 
     private static final String PATIENT = "patient";
     private final PatientService patientService;
-    private final RecipesService recipesService;
+    private final AppointmentService appointmentService;
 
     @GetMapping
     public String list(Model model){
@@ -30,7 +30,7 @@ public class PatientController {
     @GetMapping("{id}")
     public String showPatient(@PathVariable Integer id, Model model){
         model.addAttribute(PATIENT, patientService.getPatientById(id));
-        model.addAttribute("recipes", recipesService.getAllRecipesByPatientId(id));
+        model.addAttribute("appointments", appointmentService.getAllAppointmentsByPatientId(id));
         return "patientshow";
     }
 

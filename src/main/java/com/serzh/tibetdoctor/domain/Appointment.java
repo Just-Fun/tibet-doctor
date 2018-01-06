@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe {
+public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

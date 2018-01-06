@@ -83,7 +83,7 @@
                 <th>фамилия</th>
                 <th>имя</th>
                 <th>пол</th>
-                <th>назначения</th>
+                <th>приемы</th>
                 <th>редактировать</th>
                 <th>удалить</th>
                 <!--<th sec:authorize="hasAnyAuthority('USER','ADMIN')">View</th>-->
@@ -98,9 +98,9 @@
                 <td th:text="${patient.surname}">Surname</td>
                 <td th:text="${patient.name}">Name</td>
                 <td th:text="${patient.sex}">Sex</td>
-                <td><a th:href="${'/patients/' + patient.id}">Назначения</a></td>
-                <td><a th:href="${'/patients/edit/' + patient.id}">Edit</a></td>
-                <td><a th:href="${'/patients/delete/' + patient.id}">Delete</a></td>
+                <td><a th:href="${'/patients/' + patient.id}">приемы</a></td>
+                <td><a th:href="${'/patients/edit/' + patient.id}">редактировать</a></td>
+                <td><a th:href="${'/patients/delete/' + patient.id}">удалить</a></td>
                 <!--<td sec:authorize="hasAnyAuthority('USER','ADMIN')"><a th:href="${'/product/show/' + product.id}">View</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/edit/' + product.id}">Edit</a></td>-->
                 <!--<td sec:authorize="hasAuthority('ADMIN')"><a th:href="${'/product/delete/' + product.id}">Delete</a></td>-->
