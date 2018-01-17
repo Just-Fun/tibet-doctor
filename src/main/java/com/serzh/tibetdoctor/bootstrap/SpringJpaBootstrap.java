@@ -8,14 +8,17 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Priority;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
+@Priority(1)
 public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final PatientRepository patientRepository;
@@ -26,6 +29,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private final MealRelationRepository mealRelationRepository;
     private final TakeWithRepository takeWithRepository;
     private final DrugTypeRepository drugTypeRepository;
+    private final RecipeRepository recipeRepository;
 
     @Override
     @Transactional
@@ -53,33 +57,38 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         Appointment appointment1 = Appointment.builder()
                 .patient(patient1)
                 .date(LocalDate.now().minusDays(2))
-                .drug(drugs.get(0))
-                .dosage(dosages.get(0))
-                .dayTime(dayTimes.get(0))
-//                .timeRelativeMeal(timeRelativeMeals.get(0))
-                .mealRelation(mealRelations.get(0))
-                .durationTakingMedicines(15)
-                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
-                .takeWith(takeWiths.get(0))
+//                .recipes(recipes)
+                .diagnosis("Много жара")
                 .additionalInfo("Пить через день")
                 .procedures("Обливания")
                 .diet("Пить много кипятка")
                 .lifestyle("Плавать")
                 .build();
 
-        appointmentRepository.save(appointment1);
+        Recipe recipe1 = Recipe.builder()
+                .appointment(appointment1)
+                .drug(drugs.get(0))
+                .dosage(dosages.get(0))
+                .dayTime(dayTimes.get(0))
+                .mealRelation(mealRelations.get(0))
+                .durationTakingMedicines(15)
+                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
+                .takeWith(takeWiths.get(0))
+                .build();
+        List<Recipe> recipes = new LinkedList<>();
+        recipes.add(recipe1);
 
-        Appointment appointment2 = Appointment.builder()
+        appointment1.setRecipes(recipes);
+
+        appointmentRepository.save(appointment1);
+        log.info("save appointment1: " + appointment1);
+        recipeRepository.save(recipe1);
+        log.info("save recipe1: " + recipe1);
+
+/*        Appointment appointment2 = Appointment.builder()
                 .patient(patient1)
                 .date(LocalDate.now().minusMonths(1))
-                .drug(drugs.get(1))
-                .dosage(dosages.get(1))
-                .dayTime(dayTimes.get(1))
-//                .timeRelativeMeal(timeRelativeMeals.get(1))
-                .mealRelation(mealRelations.get(1))
-                .durationTakingMedicines(7)
-                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
-                .takeWith(takeWiths.get(1))
+                .diagnosis("Много ветра")
                 .additionalInfo("Прописан массаж кунье.")
                 .procedures("Обливания по утрам")
                 .diet("Пить много охлажденного кипятка")
@@ -88,25 +97,35 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         appointmentRepository.save(appointment2);
 
-        Patient patient2 = Patient.builder()
+        Recipe recipe2 = Recipe.builder()
+                .appointment(appointment1)
+                .drug(drugs.get(1))
+                .dosage(dosages.get(1))
+                .dayTime(dayTimes.get(1))
+                .mealRelation(mealRelations.get(1))
+                .durationTakingMedicines(7)
+                .beginningTakingMedicines(LocalDate.of(2017, 12, 22))
+                .takeWith(takeWiths.get(1))
+                .build();
+
+        recipeRepository.save(recipe2);*/
+
+
+     /*   Patient patient2 = Patient.builder()
                 .name("Jolly")
                 .sex(SexEnum.FEMALE.getSex())
                 .surname("Vahtangovna")
                 .phone("0506784567")
-                .build();
+                .build();*/
 
 
         patientRepository.save(patient1);
+        log.info("Saved patient: " + patient1);
 
-//        Appointment appointment = appointments.get(0);
-//        appointment.setPatient(patient1);
-//        appointmentsRepository.save(appointment);
-        log.info("Saved patient - id: " + patient1.getId());
-        log.info("Saved patient - id: " + patient1);
-        patientRepository.save(patient2);
-        log.info("Saved patient - id: " + patient2.getId());
+//        patientRepository.save(patient2);
+//        log.info("Saved patient: " + patient2);
 
-        for (int i = 0; i < 3; i++) {
+       /* for (int i = 0; i < 3; i++) {
 
             Patient patient = Patient.builder()
                     .sex(SexEnum.MALE.getSex())
@@ -121,7 +140,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                     .build();
 
             patientRepository.save(patient);
-        }
+        }*/
 
     }
 
@@ -205,7 +224,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .build();
 
         drugsRepository.save(drug1);
-        log.info("Saved drug - id: " + drug1.getId());
+        log.info("Saved drug: " + drug1);
 
         Drug drug2 = Drug.builder()
                 .code("DF5")
@@ -214,7 +233,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .build();
 
         drugsRepository.save(drug2);
-        log.info("Saved drug - id: " + drug2.getId());
+        log.info("Saved drug: " + drug2);
 
         result.add(drug1);
         result.add(drug2);

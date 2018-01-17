@@ -1,8 +1,6 @@
 package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Appointment;
-import com.serzh.tibetdoctor.domain.Patient;
-import com.serzh.tibetdoctor.domain.Recipe;
 import com.serzh.tibetdoctor.repositories.RecipeRepository;
 import com.serzh.tibetdoctor.services.*;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author sergii.zagryvyi on 30.11.2017
  */
 @Controller
-@RequestMapping("/appointments")
+@RequestMapping("/resipes")
 @RequiredArgsConstructor
-public class AppointmentController {
+public class RecipeController {
 
     private final AppointmentService appointmentsService;
     private final PatientService patientService;
@@ -39,29 +37,19 @@ public class AppointmentController {
 
     @GetMapping("new/{id}")
     public String newAppointment(@PathVariable Integer id, Model model) {
-        Patient patient = patientService.getPatientById(id);
-        model.addAttribute("patient", patient);
-        Appointment appointment = Appointment.builder().patient(patient).build();
-     /*   List<Recipe> recipes = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-        Recipe recipe = Recipe.builder().appointment(appointment).build();
-            recipes.add(recipe);
-        }*/
-
-//        model.addAttribute("recipes", recipes);
-        Recipe recipe = Recipe.builder().appointment(appointment).build();
-        model.addAttribute("recipe", recipe);
-        model.addAttribute("appointment", appointment);
-        addAllForAppointments(model);
+//        Patient patient = patientService.getPatientById(id);
+//        model.addAttribute("patient", patient);
+//        model.addAttribute("appointment", Appointment.builder().patient(patient).build());
+//        addAllForAppointments(model);
 
         return "appointment_form";
     }
 
     @GetMapping("edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        Appointment appointment = appointmentsService.getAppointmentById(id);
-        model.addAttribute("appointment", appointment);
-        model.addAttribute("patient", appointment.getPatient());
+//        Appointment appointment = appointmentsService.getAppointmentById(id);
+//        model.addAttribute("appointment", appointment);
+//        model.addAttribute("patient", appointment.getPatient());
 //        addAllForAppointments(model);
 
         return "appointment_form";
@@ -77,6 +65,7 @@ public class AppointmentController {
         Appointment savedAppointment = appointmentsService.saveAppointment(appointment);
         return "redirect:/patients/" + savedAppointment.getPatient().getId();
     }
+
     private void addAllForAppointments(Model model) {
         model.addAttribute("drugs", drugsService.all());
         model.addAttribute("dosages", dosageService.listAll());

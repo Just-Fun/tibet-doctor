@@ -17,7 +17,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Iterable<Patient> listAllPatients() {
-        Iterable<Patient> all = patientRepository.findAll();
+        Iterable<Patient> all = patientRepository.findAllByOrderBySurnameDesc();
         return all;
     }
 

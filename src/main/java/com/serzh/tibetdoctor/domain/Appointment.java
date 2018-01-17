@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author sergii.zagryvyi on 30.11.2017
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "appointment")
 public class Appointment {
 
     @Id
@@ -25,7 +28,13 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     private LocalDate date;
-    @ManyToOne
+//    @OneToOne
+//    private Recipes recipes;
+//    @OneToMany
+//    private Iterable<Recipe> recipes;
+    @OneToMany(targetEntity=Recipe.class, mappedBy="appointment")
+    private List<Recipe> recipes=new LinkedList<>();
+    /*@ManyToOne
     private Drug drug;
     @ManyToOne
     private Dosage dosage;
@@ -36,8 +45,9 @@ public class Appointment {
     private int durationTakingMedicines;
     private LocalDate beginningTakingMedicines;
     @ManyToOne
-    private TakeWith takeWith;
+    private TakeWith takeWith;*/
 
+    private String diagnosis;
     private String procedures;
     private String diet;
     private String lifestyle;

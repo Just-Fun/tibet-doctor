@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Tibet Doctor </title>
+    <!--don't work?-->
+    <link rel="stylesheet" type="text/css" href="../static/css/guru.css"/>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+
+    <div class="col-sm-10"><h2>Пациент</h2></div>
+
+    <table class="table table-striped">
+        <tr>
+            <th>пол</th>
+            <th>фамилия</th>
+            <th>имя</th>
+            <th>отчество</th>
+            <th>день рождения</th>
+            <th>телефон</th>
+            <th>email</th>
+            <th>доп.инфа</th>
+        </tr>
+        <tr>
+            <td th:text="${patient.sex}">sex</td>
+            <td th:text="${patient.surname}">surname</td>
+            <td th:text="${patient.name}">name</td>
+            <td th:text="${patient.patronymic}">patronymic</td>
+            <td th:text="${patient.birthday}">birthday</td>
+            <td th:text="${patient.phone}">phone</td>
+            <td th:text="${patient.email}">email</td>
+            <td th:text="${patient.additionalInfo}">additionalInfo</td>
+        </tr>
+    </table>
+
+    <!--   <div class="col-sm-2">
+           <input type="text" id="inputDrug" onkeyup="searchDrug()"
+                  placeholder="Поиск лекарства..."/>
+       </div>-->
+
+    <div>
+        <form class="form-horizontal" th:object="${appointment}" th:action="@{/appointments}" method="post">
+            <tr>
+                <td>
+                    <input type="hidden" th:field="*{patient}"/>
+                </td>
+
+
+                <!--<div class="form-group" style="width:40%;">
+                    <label class="control-label" style="font-weight: bold">Лекарство</label>
+                    <select th:field="*{drug}" style="width: 100%;">
+                        <option th:each="drug : ${drugs}"
+                                th:value="${drug.id}"
+                                th:text="${drug.code}">Выберите лекарство</option>
+                    </select>
+                </div>-->
+
+                <!--<div class="row" style="height: auto;">
+                    <input type="button" id="addPhoto" class="btn btn-default" value="Add photo"/>
+                    <p></p>
+                    <div id="photosContainer">
+                        &lt;!&ndash;<div th:each="photoDetails, stat : *{details.photos}">&ndash;&gt;
+                        <div th:each="photoDetails, stat : *{details.photos}">
+                            <div class="photoItem" style="display: inline-block; margin-left: 10px;">
+                                <img th:id="photoImg + ${stat.index}" class="photoClass" onclick="uploadPhoto(this.id)" src="" height="100" width="100" border="1"/>
+                                <input type="text" th:id="photoLink + ${stat.index}" style="display: none;" name="photos[]" class="form-control" th:attr="value=${photoDetails}" th:field="*{details.photos[__${stat.index}__]}"/>
+                                <p><a href="#" class="removePhoto">Delete</a></p>
+                            </div>
+                        </div>
+                        <div th:if="*{details.photos.size() == 0}">
+                            <div class="photoItem defaultRow" style="display: inline-block; margin-left: 10px;">
+                                <img id="photoImgDef" class="photoClass" onclick="uploadPhoto(this.id)" src="" height="100" width="100" border="1"/>
+                                <input type="text" id="photoLinkDef" style="display: none;" name="photos[]" class="form-control" value="" th:field="*{details.photos}"/>
+                                <p><a href="#" class="removePhoto">Delete</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        var uploadPhoto = function(id) {
+                            var photo = document.getElementById(id);
+                            var photoLink;
+                            var idNum;
+                            if (id.indexOf('Def') == -1){
+                                idNum = id.replace('photoImg', '');
+                                photoLink = document.getElementById('photoLink' + idNum);
+                            } else {
+                                idNum = id.replace('photoImgDef', '');
+                                photoLink = document.getElementById('photoLinkDef' + idNum);
+                            }
+                            var result = prompt('Enter image URL');
+                            if (result === null) {
+                                return;
+                            }
+                            photo.src = result;
+                            photoLink.value = result;
+                        };
+                    </script>
+                </div>-->
+
+
+                <table class="table table-striped">
+                    <td>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Выберите лекарство: </label>
+                            <div class="col-sm-10">
+                                <div th:if="${drugs != null and not #lists.isEmpty(drugs)}">
+                                    <select id="selectDrug" th:field="*{drug}">
+                                        <option th:each="drug : ${drugs}"
+                                                th:value="${drug.id}"
+                                                th:text="${drug.code}">Лекарство:
+                                        </option>
+                                    </select>
+                                </div>
+                                <div th:if="${drugs == null or #lists.isEmpty(drugs)}">
+                                    <div>"Лекарство не найдено..."</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </table>
+
+                <!--
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Дозировка: </label>
+                          <div class="col-sm-10">
+                              <select th:field="*{dosage}">
+                                  <option th:each="dosage : ${dosages}"
+                                          th:value="${dosage.id}"
+                                          th:text="${dosage.value}">Дозировка
+                                  </option>
+                              </select>
+                          </div>
+                      </div>
+                  </td>
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Время суток: </label>
+                          <div class="col-sm-10">
+                              <select th:field="*{dayTime}">
+                                  <option th:each="dayTime : ${dayTimes}"
+                                          th:value="${dayTime.id}"
+                                          th:text="${dayTime.value}">Время суток
+                                  </option>
+                              </select>
+                          </div>
+                      </div>
+                  </td>
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Относительно еды: </label>
+                          <div class="col-sm-10">
+                              <select th:field="*{mealRelation}">
+                                  <option th:each="mealRelation : ${mealRelations}"
+                                          th:value="${mealRelation.id}"
+                                          th:text="${mealRelation.value}">Относительно еды
+                                  </option>
+                              </select>
+                          </div>
+                      </div>
+                  </td>
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Длительность приема лекарства(дни):</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" th:field="*{durationTakingMedicines}"/>
+                          </div>
+                      </div>
+                  </td>
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Дата начала приема лекарства:</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" th:field="*{beginningTakingMedicines}"/>
+                          </div>
+                      </div>
+                  </td>
+
+                  <td>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Принимать с: </label>
+                          <div class="col-sm-10">
+                              <select th:field="*{takeWith}">
+                                  <option th:each="takeWith : ${takeWiths}"
+                                          th:value="${takeWith.id}"
+                                          th:text="${takeWith.value}">Принимать с
+                                  </option>
+                              </select>
+                          </div>
+                      </div>
+                  </td>-->
+
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Диагноз</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{diagnosis}"/>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Процедуры: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{procedures}"/>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Диета: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{diet}"/>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Поведение: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{lifestyle}"/>
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="form-horizontal">
+                        <label class="col-sm-2 control-label">Доп.инфа:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{additionalInfo}"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <div class="row">
+                <button type="submit" class="btn btn-default">Сохранить</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function searchDrug()
+
+    /*{
+           // Declare variables
+           var input, filter, drugs, select, drug, i;
+           input = document.getElementById("inputDrug");
+           filter = input.value.toUpperCase();
+           var filterLength = filter.length;
+
+           if (filterLength > 0 && filterLength < 2) return;
+
+           select = document.getElementById("selectDrug");
+           drugs = select.getElementsByTagName("option");
+
+           if (filterLength === 0) {
+               for (i = 0; i < drugs.length; i++) {
+                   drug = drugs[i];
+                   if (drug) {
+                       drug.style.display = "";
+                   }
+               }
+               return;
+           }
+
+           // Loop through all table rows, and hide those who don't match the search query
+           for (i = 0; i < drugs.length; i++) {
+               drug = drugs[i];
+               if (drug) {
+                   if (drug.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                       drug.style.display = "";
+                       // select[i].style.display = "";
+                   } else {
+                       drug.style.display = "none";
+                       // select[i].style.display = "none";
+                   }
+               }
+           }
+       }
+   */
+    /*]]>*/
+</script>
+
+</body>
+</html>
