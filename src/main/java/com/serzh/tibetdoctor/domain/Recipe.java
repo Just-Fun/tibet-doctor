@@ -14,8 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "recipe")
-@EqualsAndHashCode(exclude = "appointment")
-@ToString(exclude = "appointment")
+@EqualsAndHashCode(exclude = "recipeBlock")
+@ToString(exclude = "recipeBlock")
 public class Recipe {
 
     @Id
@@ -23,8 +23,8 @@ public class Recipe {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="appointment_id", nullable=false)
-    private Appointment appointment;
+    @JoinColumn(name="recipe_block_id", nullable=false)
+    private RecipeBlock recipeBlock;
 
     @ManyToOne
     private Drug drug;

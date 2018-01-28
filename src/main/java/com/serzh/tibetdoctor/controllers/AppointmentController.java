@@ -2,7 +2,6 @@ package com.serzh.tibetdoctor.controllers;
 
 import com.serzh.tibetdoctor.domain.Appointment;
 import com.serzh.tibetdoctor.domain.Patient;
-import com.serzh.tibetdoctor.domain.Recipe;
 import com.serzh.tibetdoctor.repositories.RecipeRepository;
 import com.serzh.tibetdoctor.services.*;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +48,8 @@ public class AppointmentController {
         }*/
 
 //        model.addAttribute("recipes", recipes);
-        Recipe recipe = Recipe.builder().appointment(appointment).build();
-        model.addAttribute("recipe", recipe);
+//        Recipe recipe = Recipe.builder().appointment(appointment).build();
+//        model.addAttribute("recipe", recipe);
         model.addAttribute("appointment", appointment);
         addAllForAppointments(model);
 

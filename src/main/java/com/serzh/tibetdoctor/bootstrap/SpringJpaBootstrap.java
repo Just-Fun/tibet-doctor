@@ -9,6 +9,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Priority;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +32,10 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private final TakeWithRepository takeWithRepository;
     private final DrugTypeRepository drugTypeRepository;
     private final RecipeRepository recipeRepository;
+    private final RecipeBlockRepository recipeBlockRepository;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     @Transactional
@@ -47,6 +53,8 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .additionalInfo("Обычно опаздывает на прием.")
                 .build();
 
+        patientRepository.save(patient1);
+        log.info("Saved patient: " + patient1);
 
         List<Drug> drugs = createDrugs();
         List<Dosage> dosages = createDosage();
@@ -65,8 +73,12 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .lifestyle("Плавать")
                 .build();
 
-        Recipe recipe1 = Recipe.builder()
+        RecipeBlock recipeBlock1 = RecipeBlock.builder()
                 .appointment(appointment1)
+                .build();
+
+        Recipe recipe1 = Recipe.builder()
+                .recipeBlock(recipeBlock1)
                 .drug(drugs.get(0))
                 .dosage(dosages.get(0))
                 .dayTime(dayTimes.get(0))
@@ -78,12 +90,28 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         List<Recipe> recipes = new LinkedList<>();
         recipes.add(recipe1);
 
-        appointment1.setRecipes(recipes);
+        recipeBlock1.setRecipes(recipes);
+        List<RecipeBlock> recipeBlocks = new LinkedList<>();
+
+        appointment1.setRecipeBlocks(recipeBlocks);
 
         appointmentRepository.save(appointment1);
         log.info("save appointment1: " + appointment1);
+
+        recipeBlockRepository.save(recipeBlock1);
+
         recipeRepository.save(recipe1);
         log.info("save recipe1: " + recipe1);
+
+        log.info("");
+
+        List<Appointment> appointments = new LinkedList<>();
+        appointments.add(appointment1);
+
+        patient1.setAppointments(appointments);
+        em.refresh(appointment1);
+//        em.refresh(patient1);
+        log.info("");
 
 /*        Appointment appointment2 = Appointment.builder()
                 .patient(patient1)
@@ -119,8 +147,8 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
                 .build();*/
 
 
-        patientRepository.save(patient1);
-        log.info("Saved patient: " + patient1);
+//        patientRepository.save(patient1);
+//        log.info("Saved patient: " + patient1);
 
 //        patientRepository.save(patient2);
 //        log.info("Saved patient: " + patient2);

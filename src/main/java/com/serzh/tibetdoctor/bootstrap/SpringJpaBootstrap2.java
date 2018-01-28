@@ -1,6 +1,7 @@
 package com.serzh.tibetdoctor.bootstrap;
 
 import com.serzh.tibetdoctor.domain.Appointment;
+import com.serzh.tibetdoctor.domain.Patient;
 import com.serzh.tibetdoctor.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,12 @@ public class SpringJpaBootstrap2 implements ApplicationListener<ContextRefreshed
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         Iterable<Appointment> all = appointmentRepository.findAll();
+        System.out.printf("");
+
+        Iterable<Patient> all1 = patientRepository.findAll();
+        for (Patient patient : all1) {
+            System.out.println(patient);
+        }
         System.out.printf("");
     }
 

@@ -30,8 +30,8 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.delete(id);
     }
 
-    @Override
-    public Iterable<Recipe> getAllRecipesByAppointmentId(int id) {
-        return recipeRepository.findByAppointmentId(id);
-    }
+//    @Override
+//    public Iterable<Recipe> getAllRecipesByAppointmentId(int id) {
+//        return recipeRepository.findByAppointmentId(id);
+//    }
 }

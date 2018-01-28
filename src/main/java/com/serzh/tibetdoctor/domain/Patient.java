@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.CollectionUtils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author sergii.zagryvyi on 30.11.2017
@@ -34,25 +34,26 @@ public class Patient {
 //    @Max(value = 150, message = "Age should not be greater than 150")
 //    private int age;
     private LocalDate birthday;
-//    @Pattern(regexp = "(^$|[0-9]{10})")
+    //    @Pattern(regexp = "(^$|[0-9]{10})")
     private String phone;
-//    @Email(message = "Email should be valid")
+    //    @Email(message = "Email should be valid")
     private String email;
     private String contacts;
     private String additionalInfo;
 
-    /*@OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 
-    public void setAppointments(Appointment appointment) {
+    public void setAppointments(List<Appointment> newAppointments) {
         if (CollectionUtils.isEmpty(appointments)) {
             appointments = new ArrayList<>();
         }
-        if (appointment.getPatient() == null) {
-            appointment.setPatient(this);
+        for (Appointment appointment : newAppointments) {
+            if (appointment.getPatient() == null) {
+                appointment.setPatient(this);
+            }
             appointments.add(appointment);
         }
-    }*/
-
+    }
 
 }

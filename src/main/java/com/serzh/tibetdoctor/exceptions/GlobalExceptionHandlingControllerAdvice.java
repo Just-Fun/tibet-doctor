@@ -20,6 +20,8 @@ public class GlobalExceptionHandlingControllerAdvice {
      *
      * @return Exception view.
      */
+//    @ResponseBody
+//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({SQLException.class, Exception.class})
     public String databaseError(Exception exception, Model model) {
         // Nothing to do. Return value 'databaseError' used as logical view name

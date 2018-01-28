@@ -10,5 +10,5 @@ public interface RecipeService {
 
     void delete(Integer id);
 
-    Iterable<Recipe> getAllRecipesByAppointmentId(int id);
+//    Iterable<Recipe> getAllRecipesByAppointmentId(int id);
 }

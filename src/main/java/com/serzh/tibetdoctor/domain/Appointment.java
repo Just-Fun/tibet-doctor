@@ -1,9 +1,6 @@
 package com.serzh.tibetdoctor.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "appointment")
+@EqualsAndHashCode(exclude = "patient")
+@ToString(exclude = "patient")
 public class Appointment {
 
     @Id
@@ -28,24 +27,30 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     private LocalDate date;
-//    @OneToOne
+
+    @Transient
+    public boolean isNew() {
+        return (this.id == null);
+    }
+
+    //    @OneToOne
 //    private Recipes recipes;
 //    @OneToMany
 //    private Iterable<Recipe> recipes;
-    @OneToMany(targetEntity=Recipe.class, mappedBy="appointment")
-    private List<Recipe> recipes=new LinkedList<>();
-    /*@ManyToOne
-    private Drug drug;
-    @ManyToOne
-    private Dosage dosage;
-    @ManyToOne
-    private DayTime dayTime;
-    @ManyToOne
-    private MealRelation mealRelation;
-    private int durationTakingMedicines;
-    private LocalDate beginningTakingMedicines;
-    @ManyToOne
-    private TakeWith takeWith;*/
+//    @OneToMany(targetEntity=Recipe.class, mappedBy="appointment")
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = RecipeBlock.class, mappedBy = "appointment")
+    private List<RecipeBlock> recipeBlocks = new LinkedList<>();
+ /*   @OneToMany(cascade = CascadeType.ALL, targetEntity = Recipe.class, mappedBy = "appointment")
+    private List<Recipe> recipes = new LinkedList<>();
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    public void addRecipe(Recipe recipe) {
+        recipe.setAppointment(this);
+        getRecipes().add(recipe);
+    }*/
 
     private String diagnosis;
     private String procedures;
